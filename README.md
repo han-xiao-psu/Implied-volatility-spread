@@ -9,7 +9,9 @@ SAS code
 Note: Please cite Cao, Simin, and Xiao (2020) when using this repository.
 
 Authors: Charles Cao <qxc2@psu.edu>
+
          Timothy Simin <tts3@psu.edu>
+         
          Han Xiao <hxx@psu.edu>
 
 Copyright (c) 2021 All rights reserved. 
