@@ -4,7 +4,7 @@ SAS code
 
     (1) Download at-the-money options with 30-days-to-maturity from the OptionMetrics
   
-    (2) Construct equal-weighted _IVS_ measure
+    (2) Construct equal-weighted IVS measure
 
 Note: Please cite Cao, Simin, and Xiao (2020) when using this repository.
 
