@@ -1,4 +1,4 @@
-# Implied volatility spread (updated 2020)
+# Implied volatility spread (updated 2022)
 Data and program associated with "Predicting equity premium with implied volatility spreads" by Cao, Simin, and Xiao, _Journal of Financial Markets_, 2020
 SAS code
 
