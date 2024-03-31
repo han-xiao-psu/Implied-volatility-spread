@@ -13,7 +13,6 @@ signon username=_prompt_;
 rsubmit;
 libname optionm "/wrds/optionm/sasdata/";
 libname crsp "/wrds/crsp/sasdata/a_stock";
-run;
 endrsubmit;
 
 /*assign libnames to wrds datasets*/
@@ -109,6 +108,15 @@ endrsubmit;
 rsubmit;
 proc append base=sample01 data=optionm.vsurfd2020(where=(days=30 and abs(delta)=50));run;
 endrsubmit;
+rsubmit;
+proc append base=sample01 data=optionm.vsurfd2021(where=(days=30 and abs(delta)=50));run;
+endrsubmit;
+rsubmit;
+proc append base=sample01 data=optionm.vsurfd2022(where=(days=30 and abs(delta)=50));run;
+endrsubmit;
+rsubmit;
+proc append base=sample01 data=optionm.vsurfd2023(where=(days=30 and abs(delta)=50));run;
+endrsubmit;
 
 /************** Creates OptionMetrics-CRSP Link Table **************************/
 rsubmit;
@@ -175,13 +183,13 @@ rsubmit;
 proc download data=IVS_EW_MONTH out=IVS_EW_MONTH;run;
 endrsubmit;
 
-proc export data = IVS_EW_MONTH  outfile = "&path\Data\IVS_EW_MONTH.csv"
+proc export data = IVS_EW_MONTH  outfile = "&path.\Data\IVS_EW_MONTH_2023.csv"
 dbms = csv replace;
 run;
 
 signoff;
 
-ods pdf file = "&path.\Figures\IVS2020.pdf" pdftoc = 1 startpage=no style = printer dpi = 2500;
+ods pdf file = "&path.\Figure\IVS2023.pdf" pdftoc = 1 startpage=no style = printer dpi = 2500;
 options nodate nonumber orientation=landscape;
 ods graphics / reset=all width=10.5in border=off;
 proc sgplot data=IVS_EW_MONTH;
@@ -189,12 +197,13 @@ format IVS_EW percentn8.3;
 format mdate year4.;
 band y=IVS_EW lower="01MAR2001"d upper= "30NOV2001"d / name='Recession' legendlabel = 'Recession' fillattrs=(color = gray transparency=0.6) ;
 band y=IVS_EW lower="01DEC2007"d upper= "30JUN2009"d / fillattrs=(color = gray transparency=0.6) ;
+band y=IVS_EW lower="01FEB2020"d upper= "30APR2020"d / fillattrs=(color = gray transparency=0.6) ;
 refline 0 / axis=y lineattrs=(thickness=3 color=red pattern=dash);
 series x=mdate y=IVS_EW/ name="IVS" legendlabel = 'IVS' lineattrs=(thickness=3 color=blue);
 keylegend "IVS" "Recession" / location=inside position=bottomright across=1 noborder valueattrs=(color=black size=20pt family="Times New Roman");
-xaxis label="Year" min='31JAN1996'd max='31DEC2020'd values=('31JAN1996'd to '31DEC2020'd by 200) 
+xaxis label="Year" min='31JAN1996'd max='31DEC2023'd values=('31JAN1996'd to '31DEC2023'd by 200) 
 	valueattrs=(color=black size=20pt family="Times New Roman") labelattrs=(color=black size=20pt family="Times New Roman");
-yaxis label='IVS (%)' values=(-0.04 to 0.04 by 0.02)  valueattrs=(color=black size=20pt family="Times New Roman") labelattrs=(color=black size=20pt family="Times New Roman");
+yaxis label='IVS (%)' values=(-0.06 to 0.04 by 0.02)  valueattrs=(color=black size=20pt family="Times New Roman") labelattrs=(color=black size=20pt family="Times New Roman");
 run;
 ods pdf close;
 ods graphics;
